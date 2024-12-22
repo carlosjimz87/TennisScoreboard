@@ -15,4 +15,8 @@ class ScoreBoardViewModel : ViewModel() {
     fun onPointScored(player: Player) {
        _matchState.value = _matchState.value.annotatePoint(player)
     }
+
+    fun resetMatch() {
+        _matchState.value = MatchState()
+    }
 }

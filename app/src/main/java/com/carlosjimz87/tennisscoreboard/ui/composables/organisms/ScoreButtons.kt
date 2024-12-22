@@ -16,6 +16,7 @@ import com.carlosjimz87.tennisscoreboard.domain.models.Player
 fun ScoreButtons(
     modifier: Modifier = Modifier,
     players : List<Player>,
+    matchWinner: Player?,
     onScore: (Player) -> Unit
 ) {
     Row(
@@ -26,6 +27,7 @@ fun ScoreButtons(
             Button(
                 modifier = Modifier.fillMaxHeight(),
                 onClick = { onScore(player) },
+                enabled = matchWinner == null // Disable if match is won
             ) {
                 Text("${player.desc} Scores")
             }

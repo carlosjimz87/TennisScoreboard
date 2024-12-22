@@ -43,7 +43,9 @@ fun ScoreboardScreen(
         ScoreBoard(
             modifier = Modifier.fillMaxWidth(),
             state = uiState
-        )
+        ) {
+            viewModel.resetMatch()
+        }
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -51,6 +53,7 @@ fun ScoreboardScreen(
         ScoreButtons(
             modifier,
             players = uiState.playersScore.keys.toList(),
+            matchWinner = uiState.matchWinner,
         ) { viewModel.onPointScored(it) }
     }
 }
