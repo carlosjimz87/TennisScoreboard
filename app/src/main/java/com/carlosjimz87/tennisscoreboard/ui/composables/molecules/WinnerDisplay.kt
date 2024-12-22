@@ -16,18 +16,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.carlosjimz87.tennisscoreboard.R
 import com.carlosjimz87.tennisscoreboard.ui.screens.scoreboard.state.ScoreboardUiState
 import com.carlosjimz87.tennisscoreboard.ui.theme.Colors
+import com.carlosjimz87.tennisscoreboard.utils.playSound
 
 @Composable
 fun ColumnScope.WinnerDisplay(
     state: ScoreboardUiState,
     onResetGame: () -> Unit
 ){
+    val context = LocalContext.current
 
     // Winner announcement
     state.matchWinner?.let { winner ->
+        playSound(context = context, R.raw.applause)
         Spacer(modifier = Modifier.weight(1f))
 
         Box(

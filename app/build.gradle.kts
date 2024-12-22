@@ -18,7 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Add your integer variable
-        buildConfigField("int", "MAX_SETS", "5")
+        buildConfigField("int", "MAX_SETS", "3")
     }
 
     buildTypes {

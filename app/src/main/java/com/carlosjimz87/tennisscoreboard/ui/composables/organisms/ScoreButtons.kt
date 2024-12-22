@@ -9,8 +9,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.carlosjimz87.tennisscoreboard.R
 import com.carlosjimz87.tennisscoreboard.domain.models.Player
+import com.carlosjimz87.tennisscoreboard.utils.playSound
 
 @Composable
 fun ScoreButtons(
@@ -19,6 +22,7 @@ fun ScoreButtons(
     matchWinner: Player?,
     onScore: (Player) -> Unit
 ) {
+    val context = LocalContext.current
     Row(
         modifier = modifier.fillMaxWidth().height(64.dp),
         horizontalArrangement = Arrangement.SpaceAround
@@ -26,7 +30,10 @@ fun ScoreButtons(
         players.forEach { player ->
             Button(
                 modifier = Modifier.fillMaxHeight(),
-                onClick = { onScore(player) },
+                onClick = {
+                    playSound(context, R.raw.score, durationInMillis = 2000)
+                    onScore(player)
+                },
                 enabled = matchWinner == null // Disable if match is won
             ) {
                 Text("${player.desc} Scores")
