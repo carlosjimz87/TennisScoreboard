@@ -8,23 +8,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.carlosjimz87.tennisscoreboard.R
-import com.carlosjimz87.tennisscoreboard.domain.models.Player
 
 @Composable
 fun BallOrTrophy(
-    matchWinner: Player?,
+    isWinner: Boolean?,
     isServing: Boolean
 ) {
     Box(
         modifier = Modifier.size(24.dp),
         contentAlignment = Alignment.Center
     ) {
-        if (matchWinner != null) {
-            IconRes(R.drawable.throphy)
-        } else if (isServing) {
-            IconRes(R.drawable.ball)
-        } else {
-            Spacer(modifier = Modifier.size(24.dp))
+        when {
+            isWinner == true -> IconRes(R.drawable.throphy)
+            isServing -> IconRes(R.drawable.ball)
+            else -> Spacer(modifier = Modifier.size(24.dp))
         }
     }
 }

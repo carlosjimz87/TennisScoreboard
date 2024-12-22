@@ -20,7 +20,7 @@ import com.carlosjimz87.tennisscoreboard.ui.composables.atoms.PreviousSets
 
 @Composable
 fun PlayerRow(
-    playerName: String,
+    player: Player,
     isTieBreak: Boolean,
     isServing: Boolean,
     previousSetScores: List<Int>,
@@ -34,12 +34,12 @@ fun PlayerRow(
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        PlayerName(playerName)
+        PlayerName(player.desc)
 
         Spacer(modifier = Modifier.weight(1f))
 
         // Show a (Ball for Serving || Trophy for Match Winner)
-        BallOrTrophy(matchWinner, isServing)
+        BallOrTrophy(matchWinner == player, isServing)
 
         // Previous Set Scores
         PreviousSets(previousSetScores)
@@ -56,7 +56,7 @@ fun PlayerRow(
 @Composable
 fun PreviewPlayerRow_Default() {
     PlayerRow(
-        playerName = Player.PLAYER1.name,
+        player = Player.PLAYER1,
         isTieBreak = false,
         isServing = false,
         previousSetScores = listOf(6, 4, 7),
@@ -69,7 +69,7 @@ fun PreviewPlayerRow_Default() {
 @Composable
 fun PreviewPlayerRow_Serving() {
     PlayerRow(
-        playerName = Player.PLAYER1.name,
+        player = Player.PLAYER1,
         isTieBreak = false,
         isServing = true,
         previousSetScores = listOf(6, 4),
@@ -82,7 +82,7 @@ fun PreviewPlayerRow_Serving() {
 @Composable
 fun PreviewPlayerRow_TieBreak() {
     PlayerRow(
-        playerName = Player.PLAYER2.name,
+        player = Player.PLAYER2,
         isTieBreak = true,
         isServing = true,
         previousSetScores = listOf(6, 7),
@@ -95,7 +95,7 @@ fun PreviewPlayerRow_TieBreak() {
 @Composable
 fun PreviewPlayerRow_NoPreviousSets() {
     PlayerRow(
-        playerName = Player.PLAYER2.name,
+        player = Player.PLAYER2,
         isTieBreak = false,
         isServing = false,
         previousSetScores = emptyList(),
@@ -108,7 +108,7 @@ fun PreviewPlayerRow_NoPreviousSets() {
 @Composable
 fun PreviewPlayerRow_Deuce() {
     PlayerRow(
-        playerName = Player.PLAYER1.name,
+        player = Player.PLAYER1,
         isTieBreak = false,
         isServing = true,
         previousSetScores = listOf(6, 4),
@@ -121,7 +121,7 @@ fun PreviewPlayerRow_Deuce() {
 @Composable
 fun PreviewPlayerRow_Advantage() {
     PlayerRow(
-        playerName = Player.PLAYER2.name,
+        player = Player.PLAYER2,
         isTieBreak = false,
         isServing = true,
         previousSetScores = listOf(6, 4),
@@ -130,6 +130,19 @@ fun PreviewPlayerRow_Advantage() {
     )
 }
 
+@Preview(name = "Winner Player")
+@Composable
+fun PreviewPlayerRow_Winner() {
+    PlayerRow(
+        player = Player.PLAYER2,
+        isTieBreak = false,
+        isServing = true,
+        previousSetScores = listOf(7, 6),
+        currentSetScore = 6,
+        currentGameScore = Point.LOVE.d,
+        matchWinner = Player.PLAYER2
+    )
+}
 
 
 

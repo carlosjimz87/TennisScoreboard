@@ -1,6 +1,5 @@
 package com.carlosjimz87.tennisscoreboard.ui.composables.organisms
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.carlosjimz87.tennisscoreboard.ui.composables.molecules.PlayerRow
 import com.carlosjimz87.tennisscoreboard.ui.composables.molecules.PlayersScoringRows
 import com.carlosjimz87.tennisscoreboard.ui.composables.molecules.WinnerDisplay
 import com.carlosjimz87.tennisscoreboard.ui.screens.scoreboard.state.ScoreboardUiState
@@ -24,6 +22,7 @@ fun ScoreBoard(
     state: ScoreboardUiState,
     onResetGame: () -> Unit
 ) {
+    println("ScoreBoard: ${state.matchWinner}")
     Column(modifier = modifier) {
 
         Text(

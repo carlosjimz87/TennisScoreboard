@@ -9,12 +9,13 @@ fun ColumnScope.PlayersScoringRows(state: ScoreboardUiState) {
     Column{
         state.playersScore.forEach { (player, score) ->
             PlayerRow(
-                playerName = player.desc,
+                player = player,
                 isTieBreak = state.isTieBreak,
                 isServing = score.isServing,
                 previousSetScores = score.previousSetScores,
                 currentSetScore = score.currentSetScore,
-                currentGameScore = score.currentGameScore
+                currentGameScore = score.currentGameScore,
+                matchWinner = state.matchWinner
             )
         }
     }

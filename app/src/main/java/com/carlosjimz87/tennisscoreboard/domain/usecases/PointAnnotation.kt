@@ -55,7 +55,7 @@ object PointAnnotation {
 
         // Determine the new serving player
         val newServingPlayer = determineNewServingInMatch(updatedSet.gameWinner, matchState, updatedSet)
-        println("newServingPlayer: $newServingPlayer points: ${updatedSet.currentGame.points}, tB:${updatedSet.currentGame.isTieBreak}")
+
         return if (setWinner != null) {
             // Update the finished set
             val updatedSets = matchState.sets.replaceLast(updatedSet)
@@ -74,12 +74,14 @@ object PointAnnotation {
                 sets = newSets,
                 winner = matchWinner,
                 servingPlayer = newServingPlayer,
+                isTieBreak = currentSet.isTieBreak
             )
         } else {
             // No set winner, update the current set
             matchState.copy(
                 sets = matchState.sets.replaceLast(updatedSet),
-                servingPlayer = newServingPlayer
+                servingPlayer = newServingPlayer,
+                isTieBreak = currentSet.isTieBreak
             )
         }
     }

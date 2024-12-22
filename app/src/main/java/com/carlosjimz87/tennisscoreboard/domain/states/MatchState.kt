@@ -42,7 +42,8 @@ data class MatchState(
                 Player.PLAYER1 to player1Score,
                 Player.PLAYER2 to player2Score
             ),
-            matchWinner = winner
+            matchWinner = winner,
+            isTieBreak = isTieBreak
         )
     }
 
