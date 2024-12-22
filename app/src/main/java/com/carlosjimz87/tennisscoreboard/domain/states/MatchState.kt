@@ -2,7 +2,7 @@ package com.carlosjimz87.tennisscoreboard.domain.states
 
 import com.carlosjimz87.tennisscoreboard.domain.models.Player
 import com.carlosjimz87.tennisscoreboard.domain.models.PlayerScore
-import com.carlosjimz87.tennisscoreboard.domain.models.Point
+import com.carlosjimz87.tennisscoreboard.domain.usecases.PointAnnotation.annotateMatchPoint
 import com.carlosjimz87.tennisscoreboard.domain.usecases.ScoreCalculation.calculateGameScore
 import com.carlosjimz87.tennisscoreboard.ui.screens.scoreboard.state.ScoreboardUiState
 
@@ -46,18 +46,8 @@ data class MatchState(
         )
     }
 
+
     fun annotatePoint(player: Player): MatchState {
-        val currentSet = sets.last()
-        val updatedSet = currentSet.annotatePoint(player)
-
-        val updatedSets = sets.dropLast(1) + updatedSet
-
-        val newMatchState = copy(
-            sets = updatedSets,
-            servingPlayer =
-            if (servingPlayer == Player.PLAYER1) Player.PLAYER2 else Player.PLAYER1,
-        )
-        println("MatchState.annotatePoint: ${newMatchState.sets.last().currentGame.points}")
-        return newMatchState
+        return annotateMatchPoint(this, player)
     }
 }
