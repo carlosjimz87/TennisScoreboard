@@ -7,4 +7,9 @@ data class SetState(
     val currentGame: GameState = GameState(),
     val winner: Player? = null,
     val gameWinner : Player? = null
-)
+) {
+    fun annotatePoint(player: Player): SetState {
+        val updatedGame = currentGame.annotatePoint(player)
+        return copy(currentGame = updatedGame)
+    }
+}

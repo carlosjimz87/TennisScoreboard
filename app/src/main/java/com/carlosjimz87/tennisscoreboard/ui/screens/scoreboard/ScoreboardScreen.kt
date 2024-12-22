@@ -33,7 +33,6 @@ fun ScoreboardScreen(
 ) {
 
     val uiState by viewModel.boardUiState.collectAsState(initial = ScoreboardUiState())
-    val players = listOf(Player.PLAYER1, Player.PLAYER2)
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -43,7 +42,6 @@ fun ScoreboardScreen(
         // Scoreboard Header
         ScoreBoard(
             modifier = Modifier.fillMaxWidth(),
-            players = players,
             state = uiState
         )
 
@@ -52,7 +50,7 @@ fun ScoreboardScreen(
         // Buttons to annotate points
         ScoreButtons(
             modifier,
-            players = players,
+            players = uiState.playersScore.keys.toList(),
         ) { viewModel.onPointScored(it) }
     }
 }

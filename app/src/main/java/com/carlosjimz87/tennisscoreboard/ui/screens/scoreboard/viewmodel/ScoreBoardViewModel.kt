@@ -13,6 +13,6 @@ class ScoreBoardViewModel : ViewModel() {
     val boardUiState: Flow<ScoreboardUiState> = _matchState.map { it.toScoreBoardUiState() }
 
     fun onPointScored(player: Player) {
-       // update match state
+       _matchState.value = _matchState.value.annotatePoint(player)
     }
 }
