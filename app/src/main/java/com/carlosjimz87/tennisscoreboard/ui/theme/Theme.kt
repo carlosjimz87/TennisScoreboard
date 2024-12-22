@@ -1,6 +1,5 @@
 package com.carlosjimz87.tennisscoreboard.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,25 +11,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Colors.yellow, // Bright yellow for high contrast
+    onPrimary = Colors.black, // Text on yellow (high contrast)
+    secondary = Colors.green, // Green for accents
+    onSecondary = Colors.white, // Text on green
+    tertiary = Colors.red, // Red for warnings or highlights
+    onTertiary = Colors.white, // Text on red
+    background = Colors.darkGreen, // Dark green for overall background
+    onBackground = Colors.white, // Text on background
+    surface = Colors.black, // Black for surfaces like cards
+    onSurface = Colors.white // Text on surface
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Colors.green, // Green for main theme color
+    onPrimary = Colors.white, // Text on green
+    secondary = Colors.yellow, // Yellow for accents
+    onSecondary = Colors.black, // Text on yellow
+    tertiary = Colors.red, // Red for warnings or highlights
+    onTertiary = Colors.white, // Text on red
+    background = Colors.white, // White for overall background
+    onBackground = Colors.black, // Text on background
+    surface = Colors.yellow, // Yellow for surfaces like cards
+    onSurface = Colors.black // Text on surface
 )
 
 @Composable
