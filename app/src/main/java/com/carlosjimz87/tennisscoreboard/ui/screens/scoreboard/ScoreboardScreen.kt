@@ -19,7 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import androidx.core.os.BuildCompat
+import com.carlosjimz87.tennisscoreboard.BuildConfig
 import com.carlosjimz87.tennisscoreboard.domain.models.Player
+import com.carlosjimz87.tennisscoreboard.ui.composables.atoms.isGrandSlam
 import com.carlosjimz87.tennisscoreboard.ui.composables.organisms.ScoreBoard
 import com.carlosjimz87.tennisscoreboard.ui.composables.organisms.ScoreButtons
 import com.carlosjimz87.tennisscoreboard.ui.screens.scoreboard.state.ScoreboardUiState
@@ -36,7 +39,7 @@ fun ScoreboardScreen(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(Colors.darkGreen)
+            .background(if(isGrandSlam()) Colors.green else Colors.darkGreen)
             .padding(16.dp)
     ) {
         // Scoreboard Header

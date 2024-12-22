@@ -80,38 +80,79 @@ class WinnerCalculationTest {
         assertEquals(Player.PLAYER1, winner)
     }
 
-    // Match winner tests
+    // Match winner tests (2 sets to win in a best of 3)
 
     @Test
     fun `determineMatchWinner - player 1 wins match by winning 2 sets in best of 3`() {
         val sets = listOf(
-            SetState(winner = Player.PLAYER1),
-            SetState(winner = Player.PLAYER1),
-            SetState(winner = null)
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 4)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 3)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 0, Player.PLAYER2 to 0))
         )
         val winner = WinnerCalculation.determineMatchWinner(sets, maxSets = 3)
         assertEquals(Player.PLAYER1, winner)
     }
 
     @Test
-    fun `determineMatchWinner - player 2 wins match by winning 3 sets in best of 5`() {
+    fun `determineMatchWinner - player 2 wins match by winning 2 sets in best of 3`() {
         val sets = listOf(
-            SetState(winner = Player.PLAYER2),
-            SetState(winner = Player.PLAYER2),
-            SetState(winner = Player.PLAYER2)
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 4, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 0, Player.PLAYER2 to 0))
         )
-        val winner = WinnerCalculation.determineMatchWinner(sets, maxSets = 5)
+        val winner = WinnerCalculation.determineMatchWinner(sets, maxSets = 3)
         assertEquals(Player.PLAYER2, winner)
     }
 
     @Test
     fun `determineMatchWinner - no winner yet in best of 3`() {
         val sets = listOf(
-            SetState(winner = Player.PLAYER1),
-            SetState(winner = Player.PLAYER2),
-            SetState(winner = null)
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 4)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 0, Player.PLAYER2 to 0))
         )
         val winner = WinnerCalculation.determineMatchWinner(sets, maxSets = 3)
+        assertNull(winner)
+    }
+
+// Match winner tests (3 sets to win in a best of 5)
+
+    @Test
+    fun `determineMatchWinner - player 1 wins match by winning 3 sets in best of 5`() {
+        val sets = listOf(
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 4)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 3)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 7, Player.PLAYER2 to 5)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 0, Player.PLAYER2 to 0)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 0, Player.PLAYER2 to 0))
+        )
+        val winner = WinnerCalculation.determineMatchWinner(sets, maxSets = 5)
+        assertEquals(Player.PLAYER1, winner)
+    }
+
+    @Test
+    fun `determineMatchWinner - player 2 wins match by winning 3 sets in best of 5`() {
+        val sets = listOf(
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 4, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 5, Player.PLAYER2 to 7)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 2, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 1, Player.PLAYER2 to 6))
+        )
+        val winner = WinnerCalculation.determineMatchWinner(sets, maxSets = 5)
+        assertEquals(Player.PLAYER2, winner)
+    }
+
+    @Test
+    fun `determineMatchWinner - no winner yet in best of 5`() {
+        val sets = listOf(
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 4)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 4, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 5)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 6)),
+            SetState(gamesWon = mapOf(Player.PLAYER1 to 0, Player.PLAYER2 to 0))
+        )
+        val winner = WinnerCalculation.determineMatchWinner(sets, maxSets = 5)
         assertNull(winner)
     }
 }

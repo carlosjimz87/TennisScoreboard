@@ -6,6 +6,9 @@ import com.carlosjimz87.tennisscoreboard.domain.models.Player
 import com.carlosjimz87.tennisscoreboard.domain.states.GameState
 import com.carlosjimz87.tennisscoreboard.domain.states.MatchState
 import com.carlosjimz87.tennisscoreboard.domain.states.SetState
+import com.carlosjimz87.tennisscoreboard.domain.usecases.PointAnnotation.annotateMatchPoint
+import com.carlosjimz87.tennisscoreboard.domain.usecases.WinnerCalculation.determineGameWinner
+import com.carlosjimz87.tennisscoreboard.domain.usecases.WinnerCalculation.determineMatchWinner
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertEquals
@@ -70,7 +73,7 @@ class PointAnnotationTest {
             )
         )
 
-        val updatedMatch = PointAnnotation.annotateMatchPoint(initialMatch, Player.PLAYER1)
+        val updatedMatch = annotateMatchPoint(initialMatch, Player.PLAYER1)
 
         assertEquals("A new set should be added after a set is won.", 2, updatedMatch.sets.size)
         assertEquals("Player 1 should win the first set.", Player.PLAYER1, updatedMatch.sets.first().winner)
@@ -78,20 +81,55 @@ class PointAnnotationTest {
     }
 
     @Test
-    fun `annotateMatchPoint determines the match winner`() {
+    fun `annotateMatchPoint determines the match winner for 2 sets won of 3 max`() {
+        val maxSets = 2
         val initialMatch = MatchState(
-            sets = listOf(
-                SetState(winner = Player.PLAYER1),
-                SetState(winner = Player.PLAYER1),
-                SetState(
-                    gamesWon = mapOf(Player.PLAYER1 to 5, Player.PLAYER2 to 4),
-                    currentGame = GameState(points = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 0))
-                )
-            ),
-            maxSets = BuildConfig.MAX_SETS
+            sets = List(maxSets) { index ->
+                if (index < maxSets - 1) {
+                    // Create completed sets where Player 1 is the winner
+                    SetState(
+                        gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 4),
+                        winner = Player.PLAYER1
+                    )
+                } else {
+                    // Create the current set where the game is still in progress
+                    SetState(
+                        gamesWon = mapOf(Player.PLAYER1 to 5, Player.PLAYER2 to 4),
+                        currentGame = GameState(points = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 0))
+                    )
+                }
+            },
+            maxSets = maxSets
         )
 
-        val updatedMatch = PointAnnotation.annotateMatchPoint(initialMatch, Player.PLAYER1)
+        val updatedMatch = annotateMatchPoint(initialMatch, Player.PLAYER1)
+
+        assertEquals("Player 1 should win the match.", Player.PLAYER1, updatedMatch.winner)
+    }
+
+    @Test
+    fun `annotateMatchPoint determines the match winner for 3 sets won of 5 max`() {
+        val maxSets = 5
+        val initialMatch = MatchState(
+            sets = List(maxSets) { index ->
+                if (index < maxSets - 1) {
+                    // Create completed sets where Player 1 is the winner
+                    SetState(
+                        gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 4),
+                        winner = Player.PLAYER1
+                    )
+                } else {
+                    // Create the current set where the game is still in progress
+                    SetState(
+                        gamesWon = mapOf(Player.PLAYER1 to 5, Player.PLAYER2 to 4),
+                        currentGame = GameState(points = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 0))
+                    )
+                }
+            },
+            maxSets = maxSets
+        )
+
+        val updatedMatch = annotateMatchPoint(initialMatch, Player.PLAYER1)
 
         assertEquals("Player 1 should win the match.", Player.PLAYER1, updatedMatch.winner)
     }
@@ -108,7 +146,7 @@ class PointAnnotationTest {
             )
         )
 
-        val updatedMatch = PointAnnotation.annotateMatchPoint(initialMatch, Player.PLAYER1)
+        val updatedMatch = annotateMatchPoint(initialMatch, Player.PLAYER1)
 
         assertEquals("The new set should have been created after tiebreak.", 2, updatedMatch.sets.size)
         assertEquals("The previous set's winner should remain unchanged.", Player.PLAYER1, updatedMatch.sets.first().winner)
@@ -130,7 +168,7 @@ class PointAnnotationTest {
             )
         )
 
-        val updatedMatch = PointAnnotation.annotateMatchPoint(initialMatch, Player.PLAYER2)
+        val updatedMatch = annotateMatchPoint(initialMatch, Player.PLAYER2)
 
         assertEquals("The number of sets should remain the same.", 2, updatedMatch.sets.size)
         assertEquals("Points for Player 2 should be updated in the new set.", 1, updatedMatch.sets.last().currentGame.points[Player.PLAYER2])

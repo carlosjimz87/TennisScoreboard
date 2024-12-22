@@ -1,6 +1,7 @@
 package com.carlosjimz87.tennisscoreboard.domain.usecases
 
 
+import com.carlosjimz87.tennisscoreboard.BuildConfig
 import com.carlosjimz87.tennisscoreboard.domain.models.Player
 import com.carlosjimz87.tennisscoreboard.domain.states.SetState
 import com.carlosjimz87.tennisscoreboard.domain.usecases.TieBreakDetermination.isTieBreak
@@ -36,16 +37,27 @@ object WinnerCalculation {
         }
     }
 
-    fun determineMatchWinner(sets: List<SetState>, maxSets: Int): Player? {
+    fun determineMatchWinner(sets: List<SetState>, maxSets: Int = BuildConfig.MAX_SETS): Player? {
         val setsToWin = (maxSets / 2) + 1
 
-        val player1SetsWon = sets.count { it.winner == Player.PLAYER1 }
-        val player2SetsWon = sets.count { it.winner == Player.PLAYER2 }
 
-        return when {
+        val player1SetsWon = sets.count {
+            (it.gamesWon[Player.PLAYER1] ?: 0) > (it.gamesWon[Player.PLAYER2] ?: 0) &&
+                    (it.gamesWon[Player.PLAYER1] ?: 0) >= 6
+        }
+
+        val player2SetsWon = sets.count {
+            (it.gamesWon[Player.PLAYER2] ?: 0) > (it.gamesWon[Player.PLAYER1] ?: 0) &&
+                    (it.gamesWon[Player.PLAYER2] ?: 0) >= 6
+        }
+
+        val winner = when {
             player1SetsWon >= setsToWin -> Player.PLAYER1
             player2SetsWon >= setsToWin -> Player.PLAYER2
             else -> null
         }
+
+        println("winner: $winner setsToWin: $setsToWin of $maxSets sets: $sets")
+        return winner
     }
 }

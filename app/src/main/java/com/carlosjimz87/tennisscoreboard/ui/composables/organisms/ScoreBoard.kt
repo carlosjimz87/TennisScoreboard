@@ -22,7 +22,6 @@ fun ScoreBoard(
     state: ScoreboardUiState,
     onResetGame: () -> Unit
 ) {
-    println("ScoreBoard: ${state.matchWinner}")
     Column(modifier = modifier) {
 
         Text(
