@@ -28,7 +28,8 @@ fun PlayerRow(
     previousSetScores: List<Int>,
     currentSetScore: Int,
     currentGameScore: String,
-    matchWinner: Player? = null
+    matchWinner: Player? = null,
+    animated : Boolean = true
 ) {
     Row(
         modifier = Modifier
@@ -58,7 +59,7 @@ fun PlayerRow(
                 .align(Alignment.CenterVertically),
             contentAlignment = Alignment.Center
         ) {
-            CurrentGame(currentGameScore, isTieBreak)
+            CurrentGame(currentGameScore, isTieBreak, animated)
         }
     }
 }
@@ -72,7 +73,8 @@ fun PreviewPlayerRow_Default() {
         isServing = false,
         previousSetScores = listOf(6, 4, 7),
         currentSetScore = 5,
-        currentGameScore = "30"
+        currentGameScore = "30",
+        animated = false
     )
 }
 
@@ -85,7 +87,8 @@ fun PreviewPlayerRow_Serving() {
         isServing = true,
         previousSetScores = listOf(6, 4),
         currentSetScore = 3,
-        currentGameScore = Point.FORTY.d
+        currentGameScore = Point.FORTY.d,
+        animated = false
     )
 }
 
@@ -98,7 +101,8 @@ fun PreviewPlayerRow_TieBreak() {
         isServing = true,
         previousSetScores = listOf(6, 7),
         currentSetScore = 6,
-        currentGameScore = "6"
+        currentGameScore = "6",
+        animated = false
     )
 }
 
@@ -111,7 +115,8 @@ fun PreviewPlayerRow_NoPreviousSets() {
         isServing = false,
         previousSetScores = emptyList(),
         currentSetScore = 2,
-        currentGameScore = Point.FIFTEEN.d
+        currentGameScore = Point.FIFTEEN.d,
+        animated = false
     )
 }
 
@@ -124,7 +129,8 @@ fun PreviewPlayerRow_Deuce() {
         isServing = true,
         previousSetScores = listOf(6, 4),
         currentSetScore = 5,
-        currentGameScore = Point.DEUCE.d
+        currentGameScore = Point.DEUCE.d,
+        animated = false
     )
 }
 
@@ -137,7 +143,8 @@ fun PreviewPlayerRow_Advantage() {
         isServing = true,
         previousSetScores = listOf(6, 4),
         currentSetScore = 5,
-        currentGameScore = Point.ADVANTAGE.d
+        currentGameScore = Point.ADVANTAGE.d,
+        animated = false
     )
 }
 
@@ -151,7 +158,8 @@ fun PreviewPlayerRow_Winner() {
         previousSetScores = listOf(7, 6),
         currentSetScore = 6,
         currentGameScore = Point.LOVE.d,
-        matchWinner = Player.PLAYER2
+        matchWinner = Player.PLAYER2,
+        animated = false
     )
 }
 
