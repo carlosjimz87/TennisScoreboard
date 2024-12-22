@@ -57,7 +57,7 @@ fun ColumnScope.WinnerDisplay(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .height(64.dp)
-                .padding(top = 8.dp),
+                .padding(top = 8.dp, bottom = 16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Colors.red)
         ) {
             Text("Reset Game")

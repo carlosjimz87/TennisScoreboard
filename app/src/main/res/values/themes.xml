@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.TennisScoreboard" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.TennisScoreboard" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Main app background -->
+        <item name="android:windowBackground">@color/white</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/dark_green</item>
+
+        <!-- Navigation bar color -->
+        <item name="android:navigationBarColor">@color/dark_green</item>
+
+        <!-- Light icons for better contrast -->
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.TennisScoreboard.Splash" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Background color for the splash screen -->
+        <item name="android:windowBackground">@color/green</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/green</item>
+
+        <!-- Navigation bar color -->
+        <item name="android:navigationBarColor">@color/green</item>
+
+        <!-- Light icons for better contrast -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>
