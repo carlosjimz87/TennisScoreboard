@@ -1,9 +1,11 @@
 package com.carlosjimz87.tennisscoreboard.ui.composables.molecules
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,11 +36,13 @@ fun PlayerRow(
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        // Player Name
         PlayerName(player.desc)
 
+        // Spacer to align elements
         Spacer(modifier = Modifier.weight(1f))
 
-        // Show a (Ball for Serving || Trophy for Match Winner)
+        // Ball or Trophy icon
         BallOrTrophy(matchWinner == player, isServing)
 
         // Previous Set Scores
@@ -47,8 +51,15 @@ fun PlayerRow(
         // Current Set Score
         CurrentSet(currentSetScore)
 
-        // Current Game Score
-        CurrentGame(currentGameScore, isTieBreak)
+        // Ensure consistent width for Current Game Score
+        Box(
+            modifier = Modifier
+                .width(60.dp) // Enforce a fixed width for 3-character scores
+                .align(Alignment.CenterVertically),
+            contentAlignment = Alignment.Center
+        ) {
+            CurrentGame(currentGameScore, isTieBreak)
+        }
     }
 }
 
