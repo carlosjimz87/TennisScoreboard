@@ -1,5 +1,6 @@
 package com.carlosjimz87.tennisscoreboard.domain.states
 
+import com.carlosjimz87.tennisscoreboard.BuildConfig
 import com.carlosjimz87.tennisscoreboard.domain.models.Player
 import com.carlosjimz87.tennisscoreboard.domain.models.PlayerScore
 import com.carlosjimz87.tennisscoreboard.domain.usecases.PointAnnotation.annotateMatchPoint
@@ -11,7 +12,7 @@ data class MatchState(
     val servingPlayer: Player = Player.PLAYER1,
     val isTieBreak: Boolean = false,
     val winner: Player? = null,
-    val maxSets: Int = 3 // This must be configurable
+    val maxSets: Int = BuildConfig.MAX_SETS
 ) {
     fun toScoreBoardUiState() : ScoreboardUiState{
         val currentSet = sets.last()

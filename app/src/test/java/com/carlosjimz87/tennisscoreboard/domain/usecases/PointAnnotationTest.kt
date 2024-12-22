@@ -1,6 +1,7 @@
 package com.carlosjimz87.tennisscoreboard.domain.usecases
 
 
+import com.carlosjimz87.tennisscoreboard.BuildConfig
 import com.carlosjimz87.tennisscoreboard.domain.models.Player
 import com.carlosjimz87.tennisscoreboard.domain.states.GameState
 import com.carlosjimz87.tennisscoreboard.domain.states.MatchState
@@ -87,7 +88,7 @@ class PointAnnotationTest {
                     currentGame = GameState(points = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 0))
                 )
             ),
-            maxSets = 3
+            maxSets = BuildConfig.MAX_SETS
         )
 
         val updatedMatch = PointAnnotation.annotateMatchPoint(initialMatch, Player.PLAYER1)
