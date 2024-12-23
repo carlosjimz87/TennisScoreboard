@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,21 +17,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.carlosjimz87.tennisscoreboard.ui.theme.Colors
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun CurrentGame(currentGameScore: String, isTieBreak: Boolean, animated: Boolean = true) {
-    val backgroundColor = if (isTieBreak) Colors.red else Colors.darkGreen
+fun CurrentGame(
+    currentGameScore: String,
+    isTieBreak: Boolean,
+    animated: Boolean = true,
+) {
+    //val backgroundColor = if (isTieBreak) Colors.red else backgroundDefault
+    val textColor = if (isTieBreak) Colors.white else Colors.yellow
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(backgroundColor)
-            .padding(horizontal = 2.dp, vertical = 2.dp)
             .defaultMinSize(minWidth = 60.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -38,25 +41,23 @@ fun CurrentGame(currentGameScore: String, isTieBreak: Boolean, animated: Boolean
             AnimatedContent(
                 targetState = currentGameScore,
                 transitionSpec = {
-                    slideInVertically { height -> height } + fadeIn() with
-                            slideOutVertically { height -> -height } + fadeOut()
+                    (slideInVertically { height -> height } + fadeIn()).togetherWith(
+                        slideOutVertically { height -> -height } + fadeOut())
                 }, label = "Score animation"
             ) { score ->
                 Text(
                     text = score,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.labelLarge,
                     textAlign = TextAlign.Center,
-                    color = Colors.yellow,
-                    fontWeight = FontWeight.Bold
+                    color = textColor,
                 )
             }
         } else {
             Text(
                 text = currentGameScore,
-                style = MaterialTheme.typography.headlineMedium,
+                style = MaterialTheme.typography.labelLarge,
                 textAlign = TextAlign.Center,
-                color = Colors.yellow,
-                fontWeight = FontWeight.Bold
+                color = textColor,
             )
         }
     }

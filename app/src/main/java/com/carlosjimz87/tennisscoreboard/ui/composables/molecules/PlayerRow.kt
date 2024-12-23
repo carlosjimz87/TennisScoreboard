@@ -1,5 +1,6 @@
 package com.carlosjimz87.tennisscoreboard.ui.composables.molecules
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +19,8 @@ import com.carlosjimz87.tennisscoreboard.ui.composables.atoms.CurrentGame
 import com.carlosjimz87.tennisscoreboard.ui.composables.atoms.CurrentSet
 import com.carlosjimz87.tennisscoreboard.ui.composables.atoms.PlayerName
 import com.carlosjimz87.tennisscoreboard.ui.composables.atoms.PreviousSets
-
+import com.carlosjimz87.tennisscoreboard.ui.theme.Colors.darkGreen
+import com.carlosjimz87.tennisscoreboard.ui.theme.Colors.green
 
 @Composable
 fun PlayerRow(
@@ -34,7 +36,8 @@ fun PlayerRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .background(darkGreen)
+            .padding(vertical = 8.dp, horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         // Player Name
@@ -56,7 +59,8 @@ fun PlayerRow(
         Box(
             modifier = Modifier
                 .width(60.dp) // Enforce a fixed width for 3-character scores
-                .align(Alignment.CenterVertically),
+                .align(Alignment.CenterVertically)
+                .background(green),
             contentAlignment = Alignment.Center
         ) {
             CurrentGame(currentGameScore, isTieBreak, animated)
@@ -68,7 +72,7 @@ fun PlayerRow(
 @Composable
 fun PreviewPlayerRow_Default() {
     PlayerRow(
-        player = Player.PLAYER1,
+        player = Player.P1,
         isTieBreak = false,
         isServing = false,
         previousSetScores = listOf(6, 4, 7),
@@ -82,7 +86,7 @@ fun PreviewPlayerRow_Default() {
 @Composable
 fun PreviewPlayerRow_Serving() {
     PlayerRow(
-        player = Player.PLAYER1,
+        player = Player.P1,
         isTieBreak = false,
         isServing = true,
         previousSetScores = listOf(6, 4),
@@ -96,7 +100,7 @@ fun PreviewPlayerRow_Serving() {
 @Composable
 fun PreviewPlayerRow_TieBreak() {
     PlayerRow(
-        player = Player.PLAYER2,
+        player = Player.P2,
         isTieBreak = true,
         isServing = true,
         previousSetScores = listOf(6, 7),
@@ -110,7 +114,7 @@ fun PreviewPlayerRow_TieBreak() {
 @Composable
 fun PreviewPlayerRow_NoPreviousSets() {
     PlayerRow(
-        player = Player.PLAYER2,
+        player = Player.P2,
         isTieBreak = false,
         isServing = false,
         previousSetScores = emptyList(),
@@ -124,7 +128,7 @@ fun PreviewPlayerRow_NoPreviousSets() {
 @Composable
 fun PreviewPlayerRow_Deuce() {
     PlayerRow(
-        player = Player.PLAYER1,
+        player = Player.P1,
         isTieBreak = false,
         isServing = true,
         previousSetScores = listOf(6, 4),
@@ -138,7 +142,7 @@ fun PreviewPlayerRow_Deuce() {
 @Composable
 fun PreviewPlayerRow_Advantage() {
     PlayerRow(
-        player = Player.PLAYER2,
+        player = Player.P2,
         isTieBreak = false,
         isServing = true,
         previousSetScores = listOf(6, 4),
@@ -152,13 +156,13 @@ fun PreviewPlayerRow_Advantage() {
 @Composable
 fun PreviewPlayerRow_Winner() {
     PlayerRow(
-        player = Player.PLAYER2,
+        player = Player.P2,
         isTieBreak = false,
         isServing = true,
         previousSetScores = listOf(7, 6),
         currentSetScore = 6,
         currentGameScore = Point.LOVE.d,
-        matchWinner = Player.PLAYER2,
+        matchWinner = Player.P2,
         animated = false
     )
 }

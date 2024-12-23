@@ -5,8 +5,8 @@ import com.carlosjimz87.tennisscoreboard.domain.models.Player
 object TieBreakDetermination {
 
     fun isTieBreak(gamesWon: Map<Player, Int>): Boolean {
-        val player1Games = gamesWon[Player.PLAYER1] ?: 0
-        val player2Games = gamesWon[Player.PLAYER2] ?: 0
-        return player1Games == 6 && player2Games == 6
+        val p1Games = gamesWon[Player.P1] ?: 0
+        val p2Games = gamesWon[Player.P2] ?: 0
+        return p1Games == 6 && p2Games == 6
     }
 }

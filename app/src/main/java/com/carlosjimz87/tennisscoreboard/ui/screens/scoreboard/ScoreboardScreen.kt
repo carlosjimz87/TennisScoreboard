@@ -29,7 +29,6 @@ fun ScoreboardScreen(
         modifier = modifier
             .fillMaxWidth()
             .background(backgroundColor)
-            .padding(16.dp)
     ) {
         // Scoreboard Header
         ScoreBoard(
@@ -43,7 +42,7 @@ fun ScoreboardScreen(
 
         // Buttons to annotate points
         ScoreButtons(
-            modifier,
+            modifier.padding(horizontal = 16.dp),
             players = uiState.playersScore.keys.toList(),
             matchWinner = uiState.matchWinner,
         ) { viewModel.onPointScored(it) }

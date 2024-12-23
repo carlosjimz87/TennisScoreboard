@@ -33,7 +33,6 @@ fun decorateSystemBars(context: Context, window: Window, color: Int = R.color.gr
     WindowCompat.setDecorFitsSystemWindows(window, false) // Let Compose handle insets
     window.statusBarColor = getColor(context, color) // Status bar color
     window.navigationBarColor = getColor(context, color) // Navigation bar color
-    window.decorView.systemUiVisibility = 0 //
     WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false
 }
 

@@ -9,7 +9,7 @@ import com.carlosjimz87.tennisscoreboard.ui.screens.scoreboard.state.ScoreboardU
 
 data class MatchState(
     val sets: List<SetState> = listOf(SetState()),
-    val servingPlayer: Player = Player.PLAYER1,
+    val servingPlayer: Player = Player.P1,
     val isTieBreak: Boolean = false,
     val winner: Player? = null,
     val maxSets: Int = BuildConfig.MAX_SETS
@@ -24,24 +24,24 @@ data class MatchState(
         )
 
         // Generate PlayerScore for each player
-        val player1Score = PlayerScore(
-            previousSetScores = sets.dropLast(1).map { it.gamesWon[Player.PLAYER1] ?: 0 },
-            currentSetScore = currentSet.gamesWon[Player.PLAYER1] ?: 0,
-            currentGameScore = gameScores[Player.PLAYER1] ?: "0",
-            isServing = servingPlayer == Player.PLAYER1
+        val p1Score = PlayerScore(
+            previousSetScores = sets.dropLast(1).map { it.gamesWon[Player.P1] ?: 0 },
+            currentSetScore = currentSet.gamesWon[Player.P1] ?: 0,
+            currentGameScore = gameScores[Player.P1] ?: "0",
+            isServing = servingPlayer == Player.P1
         )
 
-        val player2Score = PlayerScore(
-            previousSetScores = sets.dropLast(1).map { it.gamesWon[Player.PLAYER2] ?: 0 },
-            currentSetScore = currentSet.gamesWon[Player.PLAYER2] ?: 0,
-            currentGameScore = gameScores[Player.PLAYER2] ?: "0",
-            isServing = servingPlayer == Player.PLAYER2
+        val p2Score = PlayerScore(
+            previousSetScores = sets.dropLast(1).map { it.gamesWon[Player.P2] ?: 0 },
+            currentSetScore = currentSet.gamesWon[Player.P2] ?: 0,
+            currentGameScore = gameScores[Player.P2] ?: "0",
+            isServing = servingPlayer == Player.P2
         )
 
         return ScoreboardUiState(
             playersScore = mapOf(
-                Player.PLAYER1 to player1Score,
-                Player.PLAYER2 to player2Score
+                Player.P1 to p1Score,
+                Player.P2 to p2Score
             ),
             matchWinner = winner,
             isTieBreak = isTieBreak

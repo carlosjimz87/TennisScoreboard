@@ -12,7 +12,7 @@ object ServeRotation {
         if (counter % 2 == 0) rotatePlayer(current) else current
 
     private fun rotatePlayer(current: Player): Player =
-        if (current == Player.PLAYER1) Player.PLAYER2 else Player.PLAYER1
+        if (current == Player.P1) Player.P2 else Player.P1
 
     fun determineNewServingInMatch(
         setWinner: Player?,

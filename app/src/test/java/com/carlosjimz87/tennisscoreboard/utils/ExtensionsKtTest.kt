@@ -11,10 +11,10 @@ class ExtensionsKtTest {
     @Test
     fun `replaceLast updates the last element in the list`() {
         val initialList = listOf(
-            SetState(gamesWon = mapOf(Player.PLAYER1 to 5)),
-            SetState(gamesWon = mapOf(Player.PLAYER1 to 6))
+            SetState(gamesWon = mapOf(Player.P1 to 5)),
+            SetState(gamesWon = mapOf(Player.P1 to 6))
         )
-        val newSet = SetState(gamesWon = mapOf(Player.PLAYER2 to 7))
+        val newSet = SetState(gamesWon = mapOf(Player.P2 to 7))
 
         val updatedList = initialList.replaceLast(newSet)
 
@@ -26,7 +26,7 @@ class ExtensionsKtTest {
     @Test
     fun `replaceLast on an empty list returns an empty list`() {
         val initialList = emptyList<SetState>()
-        val newSet = SetState(gamesWon = mapOf(Player.PLAYER2 to 7))
+        val newSet = SetState(gamesWon = mapOf(Player.P2 to 7))
 
         val updatedList = initialList.replaceLast(newSet)
 
@@ -35,31 +35,31 @@ class ExtensionsKtTest {
 
     @Test
     fun `addOne increments existing player's score`() {
-        val initialMap = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 2)
+        val initialMap = mapOf(Player.P1 to 3, Player.P2 to 2)
 
-        val updatedMap = initialMap.addOne(Player.PLAYER1)
+        val updatedMap = initialMap.addOne(Player.P1)
 
-        assertEquals("Player 1's score should be incremented by 1.", 4, updatedMap[Player.PLAYER1])
-        assertEquals("Player 2's score should remain unchanged.", 2, updatedMap[Player.PLAYER2])
+        assertEquals("Player 1's score should be incremented by 1.", 4, updatedMap[Player.P1])
+        assertEquals("Player 2's score should remain unchanged.", 2, updatedMap[Player.P2])
     }
 
     @Test
     fun `addOne initializes player's score if not present`() {
-        val initialMap = mapOf(Player.PLAYER1 to 3)
+        val initialMap = mapOf(Player.P1 to 3)
 
-        val updatedMap = initialMap.addOne(Player.PLAYER2)
+        val updatedMap = initialMap.addOne(Player.P2)
 
-        assertEquals("Player 1's score should remain unchanged.", 3, updatedMap[Player.PLAYER1])
-        assertEquals("Player 2's score should be initialized to 1.", 1, updatedMap[Player.PLAYER2])
+        assertEquals("Player 1's score should remain unchanged.", 3, updatedMap[Player.P1])
+        assertEquals("Player 2's score should be initialized to 1.", 1, updatedMap[Player.P2])
     }
 
     @Test
     fun `addOne works with an empty map`() {
         val initialMap = emptyMap<Player, Int>()
 
-        val updatedMap = initialMap.addOne(Player.PLAYER1)
+        val updatedMap = initialMap.addOne(Player.P1)
 
-        assertEquals("Player 1's score should be initialized to 1.", 1, updatedMap[Player.PLAYER1])
+        assertEquals("Player 1's score should be initialized to 1.", 1, updatedMap[Player.P1])
         assertEquals("The map should contain only one player.", 1, updatedMap.size)
     }
 }

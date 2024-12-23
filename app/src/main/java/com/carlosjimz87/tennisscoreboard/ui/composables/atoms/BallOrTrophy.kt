@@ -1,5 +1,6 @@
 package com.carlosjimz87.tennisscoreboard.ui.composables.atoms
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -9,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.carlosjimz87.tennisscoreboard.R
+import com.carlosjimz87.tennisscoreboard.ui.theme.Colors
 
 @Composable
 fun BallOrTrophy(
@@ -16,7 +18,6 @@ fun BallOrTrophy(
     isServing: Boolean
 ) {
     Box(
-        modifier = Modifier.size(24.dp),
         contentAlignment = Alignment.Center
     ) {
         when {

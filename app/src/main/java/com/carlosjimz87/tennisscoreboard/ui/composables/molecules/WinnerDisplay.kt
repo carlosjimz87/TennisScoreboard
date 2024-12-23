@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,13 +26,14 @@ import com.carlosjimz87.tennisscoreboard.utils.playSound
 fun ColumnScope.WinnerDisplay(
     state: ScoreboardUiState,
     onResetGame: () -> Unit
-){
+) {
     val context = LocalContext.current
 
     // Winner announcement
     state.matchWinner?.let { winner ->
         playSound(context = context, R.raw.applause)
-        Spacer(modifier = Modifier.weight(1f))
+
+        Spacer(modifier = Modifier.height(32.dp)) // Add some space at the top
 
         Box(
             modifier = Modifier
@@ -43,24 +43,28 @@ fun ColumnScope.WinnerDisplay(
                 .padding(16.dp)
         ) {
             Text(
-                text = "${winner.desc} WON!",
-                style = MaterialTheme.typography.displayMedium,
+                text = "${winner.name} WON!",
+                style = MaterialTheme.typography.displayLarge,
                 color = Colors.yellow,
             )
         }
 
-
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(32.dp)) // Add some space between the message and button
 
         Button(
             onClick = onResetGame,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .height(64.dp)
-                .padding(top = 8.dp, bottom = 16.dp),
+                .height(68.dp)
+                .padding(horizontal = 32.dp, vertical = 8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Colors.red)
         ) {
-            Text("Reset Game")
+            Text(
+                text = "Reset Game",
+                style = MaterialTheme.typography.labelMedium.copy(
+                    color = Colors.white,
+                ),
+            )
         }
     }
 }

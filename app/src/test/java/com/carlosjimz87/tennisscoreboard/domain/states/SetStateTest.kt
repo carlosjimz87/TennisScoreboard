@@ -17,12 +17,12 @@ class SetStateTest {
         assertEquals(
             "Player 1 should start with 0 games won.",
             0,
-            setState.gamesWon[Player.PLAYER1]
+            setState.gamesWon[Player.P1]
         )
         assertEquals(
             "Player 2 should start with 0 games won.",
             0,
-            setState.gamesWon[Player.PLAYER2]
+            setState.gamesWon[Player.P2]
         )
         assertNull(
             "There should be no winner for a new SetState.",
@@ -37,28 +37,28 @@ class SetStateTest {
     @Test
     fun `SetState updates correctly when a player wins a game`() {
         val initialSet = SetState(
-            gamesWon = mapOf(Player.PLAYER1 to 3, Player.PLAYER2 to 2)
+            gamesWon = mapOf(Player.P1 to 3, Player.P2 to 2)
         )
         val updatedSet = initialSet.copy(
-            gamesWon = initialSet.gamesWon.addOne(Player.PLAYER1)
+            gamesWon = initialSet.gamesWon.addOne(Player.P1)
         )
 
         assertEquals(
             "Player 1's games won should be incremented by 1.",
             4,
-            updatedSet.gamesWon[Player.PLAYER1]
+            updatedSet.gamesWon[Player.P1]
         )
         assertEquals(
             "Player 2's games won should remain the same.",
             2,
-            updatedSet.gamesWon[Player.PLAYER2]
+            updatedSet.gamesWon[Player.P2]
         )
     }
 
     @Test
     fun `SetState correctly identifies a tie-break situation`() {
         val setState = SetState(
-            gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 6)
+            gamesWon = mapOf(Player.P1 to 6, Player.P2 to 6)
         )
 
         assertTrue(
@@ -70,7 +70,7 @@ class SetStateTest {
     @Test
     fun `SetState declares a winner when a player wins with 6 games and 2-game lead`() {
         val setState = SetState(
-            gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 4)
+            gamesWon = mapOf(Player.P1 to 6, Player.P2 to 4)
         )
 
         val updatedSet = setState.copy(
@@ -79,7 +79,7 @@ class SetStateTest {
 
         assertEquals(
             "Player 1 should be the winner when they have a 2-game lead with 6 games.",
-            Player.PLAYER1,
+            Player.P1,
             updatedSet.winner
         )
     }
@@ -87,7 +87,7 @@ class SetStateTest {
     @Test
     fun `SetState does not declare a winner without a 2-game lead`() {
         val setState = SetState(
-            gamesWon = mapOf(Player.PLAYER1 to 6, Player.PLAYER2 to 5)
+            gamesWon = mapOf(Player.P1 to 6, Player.P2 to 5)
         )
 
         val updatedSet = setState.copy(
@@ -103,33 +103,33 @@ class SetStateTest {
     @Test
     fun `SetState resets current game after a game is won`() {
         val initialSet = SetState(
-            gamesWon = mapOf(Player.PLAYER1 to 5, Player.PLAYER2 to 5),
-            currentGame = GameState(points = mapOf(Player.PLAYER1 to 4, Player.PLAYER2 to 2))
+            gamesWon = mapOf(Player.P1 to 5, Player.P2 to 5),
+            currentGame = GameState(points = mapOf(Player.P1 to 4, Player.P2 to 2))
         )
         val updatedSet = initialSet.copy(
             currentGame = GameState(),
-            gamesWon = initialSet.gamesWon.addOne(Player.PLAYER1)
+            gamesWon = initialSet.gamesWon.addOne(Player.P1)
         )
 
         assertEquals(
             "Player 1's games won should increment after winning the current game.",
             6,
-            updatedSet.gamesWon[Player.PLAYER1]
+            updatedSet.gamesWon[Player.P1]
         )
         assertEquals(
             "Player 2's games won should remain the same.",
             5,
-            updatedSet.gamesWon[Player.PLAYER2]
+            updatedSet.gamesWon[Player.P2]
         )
         assertEquals(
             "Current game points for Player 1 should reset after winning.",
             0,
-            updatedSet.currentGame.points[Player.PLAYER1]
+            updatedSet.currentGame.points[Player.P1]
         )
         assertEquals(
             "Current game points for Player 2 should reset after winning.",
             0,
-            updatedSet.currentGame.points[Player.PLAYER2]
+            updatedSet.currentGame.points[Player.P2]
         )
     }
 }
